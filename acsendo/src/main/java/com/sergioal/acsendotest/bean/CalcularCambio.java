@@ -100,7 +100,7 @@ public class CalcularCambio {
 							if(monto!=0||monto==0&&codigoOper==3) {
 								billEntrega.add(contador);
 							}
-							
+							System.out.println("aca deberia estar haciendo algo");
 						}else if(codigoOper==1&&monto<menorValor||codigoOper==2&&monto<menorValor||codigoOper==4&&monto<menorValor) {
 							contador[2]=monto;
 							billEntrega.add(contador);
