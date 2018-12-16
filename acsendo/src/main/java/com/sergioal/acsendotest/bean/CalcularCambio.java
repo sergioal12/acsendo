@@ -10,22 +10,27 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.sergioal.acsendotest.model.Billete;
 import com.sergioal.acsendotest.service.BilleteService;
 
+@Service
 @Component
 public class CalcularCambio {
 	private BilleteService billeteService;
 	
-	public void calcularCambio(int retiro, List<Billete> billetes) {
-		System.out.println("aqui entro a calcular cambio");
+	public List<int[]> calcularCambio(int retiro, List<Billete> billetes) {
+		List<int[]> billEntrega = new ArrayList();
 		
-		
-		//List<Billete> billetes = billeteService.findAll();
 		
 		if(billetes.equals(null)||billetes.isEmpty()) {
-			System.out.println("este cajero no puede entregar billetes");
+			int[] noVal = new int[3];
+			noVal[0] = -1;
+			noVal[1] = -1;
+			noVal[2] = -1;
+			billEntrega.add(noVal);
+			return billEntrega;
 		}else {
 			 int[] valores = new int[billetes.size()];
 			
@@ -41,8 +46,12 @@ public class CalcularCambio {
 			int menorValor = ordenacionMin(valores);
 			//validacion 1 que valor total sea mayor que la denominacion mas pequeña
 			if(retiro<menorValor) {
-				System.out.println("la cantidad solicitada no puede ser entregada");
-				System.out.println("debe solicitar una cantidad superior o igual al billete minimo");
+				int[] noVal = new int[3];
+				noVal[0] = -2;
+				noVal[1] = -2;
+				noVal[2] = -2;
+				billEntrega.add(noVal);
+				return billEntrega;
 			}
 			//ordenar de mayor a menor las denominaciones
 			Map<Integer, Integer> orderMap = new TreeMap<Integer, Integer>(
@@ -58,7 +67,7 @@ public class CalcularCambio {
 			//al rendimiento no le gusta esto
 				
 				int j = 0;
-				List<int[]> billEntrega = new ArrayList();
+				
 				Iterator it = orderMap.entrySet().iterator();
 				int monto = 0;
 				int codigoOper = 0;
@@ -109,13 +118,10 @@ public class CalcularCambio {
 					}
 				}
 				
-				for(int[] elem: billEntrega) {
-					System.out.println("esto es elem: "+elem[0]+" esto es elem en 2: "+elem[1]+" esto es elem en 3: "+elem[2]+" esto es elem en 4: "+elem[3]);
-				}
 				
 					
 					
-					
+				return	billEntrega;
 					
 
 		}

@@ -63,16 +63,21 @@
     	<h2>Cuanto deseas retirar?</h2>
         	<div class="ui-inputgroup">
             	<span class="ui-inputgroup-addon">$</span>
-            	<p:inputText placeholder="Monto" value='#{billeteBean.monto}'/>	     
+            	<p:inputText placeholder="Monto" id="monto" value='#{billeteBean.monto}'/>	     
         	</div>
     	</div>
     </div>
     <div>
-    	<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false"/>
+    	<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false">
+    		<f:ajax execute= "monto" render="messageId" />
+    	</p:commandButton>
+    </div>
+    <div id="output">
+    <h4><h:outputText id="messageId" value="#{billete.message}" /></h4>
     </div>
    
     <div>
-    	<p:commandButton value="login"  action="login" style="margin-right:20px;" ajax="false"/>
+    	<p:commandButton value="login"  action="login" style="margin-right:20px;" ajax="true"/>
     </div>
     </p:layoutUnit>
      </p:layout>
