@@ -2,9 +2,16 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    	<title>Retirar</title>
+  		<h:outputStylesheet name="/css/login.css" />
+    </h:head>
       <h:body>
-      	<h1>Bienvenido</h1>
-      <h:form>  
+      	
+      <h:form>
+      <p:layout> 
+      <p:layoutUnit id="center" position="center">
+      <h1>Bienvenido</h1>
       	<div class="ui-g-12 ui-md-4">
         	<p:dataTable var="billetes" value="#{billeteBean.billetes}">
     		<p:column headerText="Id">
@@ -19,28 +26,38 @@
         		<h:outputText value="#{billetes.cantidad}" />
     		</p:column>
  
-		</p:dataTable>
+			</p:dataTable>
     	</div>
+    	
+    	
+    	
     	<div class="ui-g-12 ui-md-4">
         	<!-- <p:dataTable> -->
     		<p:column headerText="Cantidad">
         		<div class="ui-inputgroup">
-            		<span class="ui-inputgroup-addon">$</span>
-            		<p:inputText placeholder="cantidad" value='#{billeteBean.cantidad}'/>	     
+            		<span class="ui-inputgroup-addon"></span>
+            		<p:inputText id="cantidad" placeholder="cantidad" value='#{billeteBean.cantidad}'>
+            		<f:validateLongRange minimun="1"/>
+            		</p:inputText> 	    
         		</div>
     		</p:column>
     		<p:column headerText="Denominacion">
         		<div class="ui-inputgroup">
             		<span class="ui-inputgroup-addon">$</span>
-            		<p:inputText placeholder="Monto" value='#{billeteBean.denominacion}'/>	     
+            		<p:inputText id="denominacion" placeholder="Denominacion" value='#{billeteBean.denominacion}'>
+            		<f:validateLongRange minimun="1"/>
+					</p:inputText> 	     
         		</div>
     		</p:column>
 		<!-- </p:dataTable> -->
     	</div>
     	<div>
     		<p:commandButton value="create"  action='#{billeteBean.create}' style="margin-right:20px;" ajax="false"/>
+    		<h:message for = "cantidad" style = "color:red" />
+    		<h:message for = "denominacion" style = "color:red" />
     	</div>
-    	
+    	</p:layoutUnit>
+    	</p:layout>
     </h:form>
       	
       </h:body>

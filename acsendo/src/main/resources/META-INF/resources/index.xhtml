@@ -4,7 +4,8 @@
     xmlns:p="http://primefaces.org/ui">
      
     <h:head>
-    
+    	<title>Retirar</title>
+  		<h:outputStylesheet name="/css/login.css" />
     </h:head>
  
     <h:body>
@@ -54,7 +55,8 @@
         
 
     <h:form>  
-     
+     <p:layout>
+     <p:layoutUnit id="center" position="center">
 	<div class="ui-g ui-fluid">
     	
     	<div class="ui-g-12 ui-md-4">
@@ -64,13 +66,16 @@
             	<p:inputText placeholder="Monto" value='#{billeteBean.monto}'/>	     
         	</div>
     	</div>
-    	<div>
-    		<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false"/>
-    	</div>
     </div>
+    <div>
+    	<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false"/>
+    </div>
+   
     <div>
     	<p:commandButton value="login"  action="login" style="margin-right:20px;" ajax="false"/>
     </div>
+    </p:layoutUnit>
+     </p:layout>
     </h:form>
 
 </h:body>
