@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+      <h:body>
+      	<h1>Bienvenido</h1>
+      <h:form>  
+      	<div class="ui-g-12 ui-md-4">
+        	<p:dataTable var="billetes" value="#{billeteBean.billetes}">
+    		<p:column headerText="Id">
+        		<h:outputText value="#{billetes.id}" />
+    		</p:column>
+ 
+    		<p:column headerText="Denominacion">
+        		<h:outputText value="#{billetes.denominacion}" />
+    		</p:column>
+ 
+    		<p:column headerText="Cantidad">
+        		<h:outputText value="#{billetes.cantidad}" />
+    		</p:column>
+ 
+		</p:dataTable>
+    	</div>
+    	<div class="ui-g-12 ui-md-4">
+        	<!-- <p:dataTable> -->
+    		<p:column headerText="Cantidad">
+        		<div class="ui-inputgroup">
+            		<span class="ui-inputgroup-addon">$</span>
+            		<p:inputText placeholder="cantidad" value='#{billeteBean.cantidad}'/>	     
+        		</div>
+    		</p:column>
+    		<p:column headerText="Denominacion">
+        		<div class="ui-inputgroup">
+            		<span class="ui-inputgroup-addon">$</span>
+            		<p:inputText placeholder="Monto" value='#{billeteBean.denominacion}'/>	     
+        		</div>
+    		</p:column>
+		<!-- </p:dataTable> -->
+    	</div>
+    	<div>
+    		<p:commandButton value="create"  action='#{billeteBean.create}' style="margin-right:20px;" ajax="false"/>
+    	</div>
+    	
+    </h:form>
+      	
+      </h:body>
+
+</html>

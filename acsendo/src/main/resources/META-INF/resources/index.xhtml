@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+    
+    </h:head>
+ 
+    <h:body>
+    <style type="text/css">    
+    .white-button.ui-button.ui-state-default {
+        background-color: #ffffff;
+        color: #222222;
+        border-color: #d6d6d6;
+        /* with the exported variables from Nova and Luna Themes*/
+        border-color: var(--input-border-color, #d6d6d6);
+    }
+ 
+    .white-button.ui-button.ui-state-default:enabled:hover, 
+    .white-button.ui-button.ui-state-default:focus {
+        background-color: #f2f2f2;
+        border-color: #ccc;
+        color: #373a3c;
+        /* with the exported variables from Nova and Luna Themes*/
+        border-color: var(--input-hover-border-color, #ccc);
+    }
+ 
+    .green-button.ui-button.ui-state-default {
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+        color: #fff;
+    }
+ 
+    .green-button.ui-button.ui-state-default:enabled:hover, 
+    .green-button.ui-button.ui-state-default:focus {
+        background-color: #4cae4c;
+        border-color: #5cb85c;
+    }
+ 
+    .red-button.ui-button.ui-state-default {
+        background-color: #d9534f;
+        border-color: #d9534f;
+        color: #fff;
+    }
+ 
+    .red-button.ui-button.ui-state-default:enabled:hover, 
+    .red-button.ui-button.ui-state-default:focus {
+        background-color: #d43f3a;
+        border-color: #d9534f;
+    }
+     
+</style>
+        
+
+    <h:form>  
+     
+	<div class="ui-g ui-fluid">
+    	
+    	<div class="ui-g-12 ui-md-4">
+    	<h2>Cuanto deseas retirar?</h2>
+        	<div class="ui-inputgroup">
+            	<span class="ui-inputgroup-addon">$</span>
+            	<p:inputText placeholder="Monto" value='#{billeteBean.monto}'/>	     
+        	</div>
+    	</div>
+    	<div>
+    		<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false"/>
+    	</div>
+    </div>
+    <div>
+    	<p:commandButton value="login"  action="login" style="margin-right:20px;" ajax="false"/>
+    </div>
+    </h:form>
+
+</h:body>
+</html>
