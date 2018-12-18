@@ -68,12 +68,16 @@
     	</div>
     </div>
     <div>
-    	<p:commandButton value="calcular"  action='#{billeteBean.test}' style="margin-right:20px;" ajax="false">
-    		<f:ajax execute= "monto" render="messageId" />
+    	<p:commandButton value="Retiro"   action='#{billeteBean.test}' style="margin-right:20px;" ajax="true" >
+    		
     	</p:commandButton>
     </div>
     <div id="output">
-    <h4><h:outputText id="messageId" value="#{billete.message}" /></h4>
+    
+  
+    	<p:messages id="messages" showDetail="true" closable="true">
+       	 <p:autoUpdate />
+    	</p:messages>
     </div>
    
     <div>

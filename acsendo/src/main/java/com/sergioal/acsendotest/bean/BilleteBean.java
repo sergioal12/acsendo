@@ -5,8 +5,9 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.NamedEvent;
 import javax.faces.view.ViewScoped;
-
+import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.sergioal.acsendotest.model.Billete;
 import com.sergioal.acsendotest.service.BilleteService;
 
-@Component
+@Named
 @ViewScoped
 public class BilleteBean   {
 	
@@ -30,18 +31,7 @@ public class BilleteBean   {
 	private int monto;
 	private int denominacion;
 	private int cantidad;
-	private String message = " ";
 	
-
-	
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
 
 	public int getDenominacion() {
 		return denominacion;
@@ -84,35 +74,41 @@ public class BilleteBean   {
 	}
 	
 	public void test() {
-		List<Billete> billetes1 = null;
-		 List<int[]>valores;
+		
+		
 		try {
+			List<Billete> billetes1 = null;
+			 List<int[]>valores;
 			billetes1 = this.billeteService.findAll();
+			valores = calCambio.calcularCambio(this.monto, billetes1);
+			int[] valValores = new int[3];
+			valValores = valores.get(0);
+			if(valValores[0] == -2) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "el valor ingresado es menor al billete mas pequeño."));
+			}else if(valValores[0] == -1) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "no se puede entregar la cantidad solicitada"));
+			}else if(valValores[0]>0) {
+				int sumatoria =0;
+				String mensaje = " ";
+				for(int[] elem: valores) {
+					
+					sumatoria = sumatoria + elem[1];
+					mensaje = mensaje + " denominacion: "+elem[3] + " cantidad: "+ elem[0] + " ";
+				}
+				
+				int valFinal = this.monto - sumatoria;
+				
+				String message1 = "se entrega"+mensaje+" la cantidad: "+valFinal +" no pudo ser entregada";
+				 
+				 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message1));
+			}
 		}catch(Exception e) {
+			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal!", "no hay billetes disponibles"));
 	    }
 			//calCambio.calcularCambio(this.monto, billetes1);
 		
-		valores = calCambio.calcularCambio(this.monto, billetes1);
-		int[] valValores = new int[3];
-		valValores = valores.get(0);
-		if(valValores[0] == -2) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "el valor ingresado es menor al billete mas pequeño."));
-		}else if(valValores[0] == -1) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "no se puede entregar la cantidad solicitada"));
-		}else if(valValores[0]>0) {
-			int sumatoria =0;
-			String mensaje = " ";
-			for(int[] elem: valores) {
-				System.out.println("esto es elem en front: "+elem[0]+" esto es elem en 2: "+elem[1]+" esto es elem en 3: "+elem[2]+" esto es elem en 4: "+elem[3]);
-				sumatoria = sumatoria + elem[4];
-				mensaje = mensaje + " denominacion: "+elem[1] + " cantidad: "+ elem[0] + " ";
-			}
-			int valFinal = this.monto - sumatoria;
-			
-			
-			 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se entrega"+mensaje+" la cantidad: "+valFinal +" no pudo ser entregada"));
-		}
+		
 		
 		
 		
